@@ -6,8 +6,10 @@ using UnityEngine.UI;
 using Niantic.Lightship.SharedAR.Colocalization;
 using Unity.Netcode;
 using Niantic.Lightship.SharedAR.Netcode;
+using Niantic.Lightship.AR.Settings;
+using MathTypes;
 
-namespace  Niantic.Lightship.AR.Samples
+namespace Niantic.Lightship.AR.Samples
 {
     public class VpsColocalizationDemo : MonoBehaviour
     {
@@ -73,7 +75,7 @@ namespace  Niantic.Lightship.AR.Samples
                 // Set room to connect
                 var vpsTrackingOptions = ISharedSpaceTrackingOptions.CreateMockTrackingOptions();
                 var roomOptions = ISharedSpaceRoomOptions.CreateLightshipRoomOptions(
-                    _roomNamePrefix + "SkippingVpsRoom",32, "vps colocalization demo");
+                    _roomNamePrefix + "SkippingVpsRoom", 32, "vps colocalization demo");
                 _sharedSpaceManager.StartSharedSpace(vpsTrackingOptions, roomOptions);
             }
             else if (Application.isEditor && !string.IsNullOrEmpty(_inEditorPayload))
@@ -111,7 +113,7 @@ namespace  Niantic.Lightship.AR.Samples
 
             // Start tracking and set Room to join based on anchor payload
             var vpsTrackingOptions = ISharedSpaceTrackingOptions.CreateVpsTrackingOptions(defaultPayloadToSet);
-            var roomOptions= ISharedSpaceRoomOptions.CreateVpsRoomOptions(
+            var roomOptions = ISharedSpaceRoomOptions.CreateVpsRoomOptions(
                 vpsTrackingOptions, _roomNamePrefix, 32, "vps colocaization demo");
             _sharedSpaceManager.StartSharedSpace(vpsTrackingOptions, roomOptions);
             _vpsCoverageTargetListManager.gameObject.SetActive(false);
@@ -135,7 +137,8 @@ namespace  Niantic.Lightship.AR.Samples
             }
             else
             {
-                if(_localizationStatusText != null){
+                if (_localizationStatusText != null)
+                {
                     _localizationStatusText.text = "NOT TRACKING";
                 }
             }
